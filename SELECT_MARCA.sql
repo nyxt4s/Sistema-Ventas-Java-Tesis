@@ -1,0 +1,7 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_BRAND`(
+
+)
+BEGIN
+SELECT * FROM Marca;
+
+END

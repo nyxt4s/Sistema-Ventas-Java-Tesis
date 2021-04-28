@@ -1,0 +1,464 @@
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_BRAND`(
+	IN_MARCA_ID varchar (120)
+)
+BEGIN
+	DELETE FROM marca WHERE ID_Marca = IN_MARCA_ID;
+END$$
+DELIMITER ;
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_CATEGORY`(
+	IN_NOMBRECATEGORIA varchar (120)
+)
+BEGIN
+	DELETE FROM categoria WHERE Categoria = IN_NOMBRECATEGORIA;
+END$$
+DELIMITER ;
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_LOCAL`(
+	IN_ID INT
+)
+BEGIN
+DELETE FROM LOCAL WHERE Id_Local = IN_ID;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Delete_Provide`(
+in_idProveedor int
+)
+BEGIN
+	DELETE FROM proveedor WHERE ID_Proveedor = in_idProveedor;
+END$$
+DELIMITER ;
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_BRAND`(
+IN_NOMBREMARCA varchar (120))
+BEGIN
+		INSERT INTO Marca (Marca) VALUES (IN_NOMBREMARCA);
+END$$
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_CATEGORY`(
+IN_NOMBRECTEGORIA varchar (120)
+)
+BEGIN
+	INSERT INTO categoria (Categoria) VALUES (IN_NOMBRECTEGORIA);
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_LOCAL`(
+IN_RUT INT,
+IN_DIGITOVERIFICADOR VARCHAR(1),
+IN_RAZON_SOCIAL VARCHAR (45),
+IN_NOMBRE_COMERCIAL VARCHAR (120))
+BEGIN
+	INSERT INTO local (Rut, Digito_verificador, Razon_Social, Nombre_Comercial) VALUES (IN_RUT, IN_DIGITOVERIFICADOR, IN_RAZON_SOCIAL, IN_NOMBRE_COMERCIAL);
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_PRODUCT`(
+IN_CODIGOBARRA VARCHAR(200),
+IN_NOMBRE VARCHAR (120),
+IN_IMAGEN VARCHAR (180),
+IN_ID_CATEGORIA INT,
+IN_ID_MARCA INT
+)
+BEGIN
+	INSERT INTO  producto (Codigo_de_Barras, Nombre, Imagen, Id_Categoria, Id_Marca) VALUES (IN_CODIGOBARRA, IN_NOMBRE, IN_IMAGEN, IN_ID_CATEGORIA, IN_ID_MARCA );
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_PROVIDE`(
+    IN RUT INT,
+    IN DIGITO_VERIFICADOR INT,
+    IN NOMBRES VARCHAR (45),
+    IN APELLIDO_P VARCHAR (45),
+    IN APELLIDO_M VARCHAR (45),
+    IN DIRECCION VARCHAR (45),
+    IN RAZON_SOCIAL VARCHAR (45),
+    IN NOMBRE_COMERCIAL VARCHAR (45))
+BEGIN
+INSERT INTO proveedor (Rut, Digito_Verificador, Nombres, Apellido_P, Apellido_M, Direccion, Razon_Social, Nombre_Comercial)
+VALUES (RUT, DIGITO_VERIFICADOR, NOMBRES, APELLIDO_P, APELLIDO_M, DIRECCION, RAZON_SOCIAL, NOMBRE_COMERCIAL);
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_BRAND`(
+
+)
+BEGIN
+SELECT * FROM Marca ;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_BRAND_FOCUS`(
+	IN_NOMBREMARCA varchar (120),
+    OUT NOMBREDELAMARCA varchar (120)
+)
+BEGIN
+SET NOMBREDELAMARCA = (SELECT Marca FROM marca WHERE Marca=IN_NOMBREMARCA);
+
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_CATEGORY`()
+BEGIN
+		SELECT * FROM categoria ;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_CATEGORY2`(
+IN_IDCATEGORY INT
+)
+BEGIN
+		SELECT * FROM categoria WHERE id_Categoria = IN_IDCATEGORY ;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_LOCAL`()
+BEGIN
+select * from local;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_LOCAL_ID`(
+	IN_ID_LOCAL INT
+)
+BEGIN
+select * from local WHERE Id_Local = IN_ID_LOCAL ;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_MARCA2`(
+IN_MARCA INT
+)
+BEGIN
+		SELECT * FROM marca WHERE ID_Marca = IN_MARCA ;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_PRODUCT`()
+BEGIN
+	select Id_Producto, Codigo_de_Barras, Nombre, Imagen, Categoria, marca from producto p 
+	inner join categoria c on p.Id_categoria = c.ID_Categoria 
+	inner join marca m on p.Id_marca = m.ID_Marca;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_PROVIDE`(
+)
+BEGIN
+
+SELECT * FROM PROVEEDOR;
+
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SELECT_PROVIDE2`(
+IN_IDPROVEEDOR int
+)
+BEGIN
+
+SELECT * FROM PROVEEDOR WHERE ID_Proveedor = IN_IDPROVEEDOR;
+
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_BRAND`(
+	IN_ID_MARCA int,
+    IN_NUEVONOMBRE VARCHAR (120)
+)
+BEGIN
+	UPDATE Marca set Marca = IN_NUEVONOMBRE WHERE ID_Marca = IN_ID_MARCA;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_CATEGORY`(
+	IN_ID_CATEGORIA int,
+    IN_NUEVONOMBRE VARCHAR (120)
+)
+BEGIN
+	UPDATE categoria set Categoria = IN_NUEVONOMBRE WHERE ID_Categoria = IN_ID_CATEGORIA;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_LOCAL`(
+IN_ID INT,
+IN_RUT INT,
+IN_RAZON_SOCIAL VARCHAR (45),
+IN_NOMBRE_COMERCIAL VARCHAR (120))
+BEGIN
+	UPDATE local SET Rut = IN_RUT, Razon_Social = IN_RAZON_SOCIAL, Nombre_Comercial = IN_NOMBRE_COMERCIAL WHERE Id_Local = IN_ID; 
+
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_PROVIDE`(
+	IN_ID INT,
+    IN_NOMBRES VARCHAR (45),
+    IN_APELLIDO_P VARCHAR (45),
+    IN_APELLIDO_M VARCHAR (45),
+    IN_DIRECCION VARCHAR (45),
+    IN_RAZON_SOCIAL VARCHAR (45),
+    IN_NOMBRE_COMERCIAL VARCHAR (45)
+
+)
+BEGIN
+	UPDATE proveedor SET Nombres = IN_NOMBRES, Apellido_P = IN_APELLIDO_P, 
+    Apellido_M = IN_APELLIDO_M, Direccion = IN_DIRECCION, RAZON_SOCIAL = IN_RAZON_SOCIAL, NOMBRE_COMERCIAL = IN_NOMBRE_COMERCIAL
+    WHERE ID_Proveedor = IN_ID;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+
+END$$
+DELIMITER ;
